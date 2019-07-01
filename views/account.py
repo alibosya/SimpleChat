@@ -1,7 +1,7 @@
 #! -*- coding: utf-8 -*-
 
 from logics.account import AccountLogics
-from settings import check_name
+from settings import check_name, check_acc
 
 
 def register(hm):
@@ -10,21 +10,19 @@ def register(hm):
     verify_pwd = hm.get_argument('verify_pwd', '')
     if passwd != verify_pwd:
         return 11, {}  # 两次输入密码不一致
+    uaccount = hm.get_argument('uaccount', '')
     uname = hm.get_argument('uname', '')
-    if check_name(uname):
-        return 22, {}  # 用户名不符合规范
-    nickname = hm.get_argument('nickname', '')
-    if not uname or nickname:
+    if not check_name(uname) or not check_acc(uaccount):
+        return 22, {}  # 用户名或账号不符合规范
+    email = hm.get_argument('email', '')
+    if not uname or email:
         return 33, {}  # 请填写完整注册信息
-    # email = hm.get_argument('email', '')
-    phone_num = hm.get_argument('phone_num', '')
 
     al = AccountLogics(mm)
-    rc, data = al.register(uname, passwd, nickname, phone_num)
+    rc, data = al.register(uaccount, uname, passwd, email)
     if rc:
         return rc, {}  # 注册失败
     return rc, data
-    return 0, {}
 
 
 def login(hm):

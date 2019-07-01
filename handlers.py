@@ -8,16 +8,7 @@ from lib.environ import HandlerManager
 
 
 class AccountHandler(web.RequestHandler):
-    # def get(self):
-    #     self.render('login.html')
-    
-    # def post(self):
-    #     uname = self.get_argument('uname', 'user666')
-    #     upwd = self.get_argument('passwd')
-    #     self.render('chat.html', uname=uname)
-    
-    # def handler(self):
-    #     pass
+
     def initialize(self):
         self.hm = HandlerManager(self)
 
@@ -52,23 +43,6 @@ class AccountHandler(web.RequestHandler):
             rc, data = method(self.hm)
             return self.result_info(rc, data)
         return self.result_info('err_not_call_method')
-        
-
-# class RegisterHandler(web.RequestHandler):
-#     def get(self):
-#         self.render('register.html')
-    
-#     def post(self):
-#         pass
-
-
-# class ChatHandler(web.RequestHandler):
-#     def get(self):
-#         uname = self.get_argument('uname', 'user888')
-#         self.render('chat.html', uname=uname)
-    
-#     def post(self):
-#         pass
 
 
 class APIRequestHandler(web.RequestHandler):

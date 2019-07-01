@@ -1,12 +1,11 @@
 #! -*- coding: utf-8 -*-
 
+from models import ModelBase
 
-class Friend():
-    def __init__(self):
-        pass
 
-    def get_friend_obj_by_uid(self):
-        pass
+class Friend(ModelBase):
+    def __init__(self, acc):
+        self.acc = acc
+        self._attrs = {}
 
-    def get_all_friend(self):
-        pass
+        super(Friend, self).__init__(acc=acc)

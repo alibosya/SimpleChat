@@ -16,19 +16,19 @@ def set_env(env_name, server=None, cw_num=1, *args, **kwargs):
     """
     # game_config里面的配置都是只读的, copy的时候改回原始类型
     start = time.time()
-    pattern = re.compile('^[a-z0-9]{8}$').match
+    pattern = re.compile('^[a-zA-Z][a-zA-Z0-9_]{5,15}$').match
     globals()['UID_PATTERN'] = pattern
 
     print 'set_env_spend_time: ', time.time() - start
 
 
-def check_uid(uid):
+def check_acc(acc):
     """
-    检查uid格式是否正确
+    检查account格式是否正确
     :param uid:
     :return:
     """
-    return False if not globals()['UID_PATTERN'](uid) else True
+    return False if not globals()['UID_PATTERN'](acc) else True
 
 
 def check_name(name):

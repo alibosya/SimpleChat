@@ -32,14 +32,13 @@ class ModelManager(object):
     def __init__(self, uid):
         self.uid = uid
         self._model = {}
-    
-    @classmethod
-    def register_model(cls, model_name, model):
-        if model_name not in cls._register_base:
-            cls._register_base[model_name] = model
-            setattr(cls, model_name, property(self.get_obj()))
+
+    def register_model(self, model_name, model):
+        if model_name not in self.__class__._register_base:
+            self.__class__._register_base[model_name] = model
+            setattr(self.__class__, model_name, property(self.get_obj()))
         else:
-            old_model = cls._register_base[model_name]
+            old_model = self.__class__._register_base[model_name]
             raise RuntimeError('model [%s] already exists \n'
                                'Conflict between the [%s] and [%s]' %
                                (model_name, old_model, model))
@@ -55,7 +54,7 @@ class ModelManager(object):
             setattr(obj, 'mm', self)
             self._model[key] = obj
             if hasattr(obj, 'pre_use'):
-                obj.pre_use
+                obj.pre_use()
         else:
             obj = None
         return obj
