@@ -2,6 +2,8 @@
 
 import redis
 
+from ast import literal_eval
+
 
 class ModelTools(object):
     """"""
@@ -49,7 +51,7 @@ class ModelBase(ModelTools):
     @classmethod
     def loads(cls, acc, data, o=None):
         """
-        数据反序列化
+        数据反序列化(将数据库中的数据赋值到自身)
         :param acc:
         :param data:
         :param o:
@@ -65,7 +67,7 @@ class ModelBase(ModelTools):
 
     def dumps(self):
         """
-        数据序列化
+        数据序列化(将自身数据取出来)
         :param compress:
         :return:
         """
@@ -104,7 +106,11 @@ class ModelBase(ModelTools):
             o.inited = True
             o.mm = mm
         else:
-            o = self.__class__.loads(acc, redis_data, o=o)
+            try:
+                redis_data = literal_eval(redis_data)
+            except Exception as e:
+                raise ValueError('redis_data evel fail')
+            o = self.__class__.loads(acc, redis_data, o)
             o.inited = False
             o.mm = mm
         return o

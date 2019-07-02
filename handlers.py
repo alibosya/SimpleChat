@@ -3,7 +3,7 @@
 import importlib
 from tornado import web
 
-from tools import result_generator
+from settings import result_generator
 from lib.environ import HandlerManager
 
 
@@ -90,22 +90,3 @@ class APIRequestHandler(web.RequestHandler):
         if not data:
             data = {}
         return rc, data, self.hm.mm
-
-
-# class BaseRequestHandler(web.RequestHandler):
-#     """  """
-
-#     @property
-#     def headers(self):
-#         return self.request.headers
-
-#     @property
-#     def body(self):
-#         return self.request.body
-
-#     def params(self):
-#         data = {}
-#         for name, values in self.request.argumens.iteritems():
-#             vs = []
-#             for v in values:
-

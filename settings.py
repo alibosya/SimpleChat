@@ -2,6 +2,7 @@
 
 import re
 import time
+import hashlib
 
 
 def set_env(env_name, server=None, cw_num=1, *args, **kwargs):
@@ -42,3 +43,16 @@ def check_name(name):
     if len(''.join(new_name)) != len(name):
         return False
     return True
+
+
+def result_generator(rc, data, mm):
+    """统一生成返回格式"""
+    rd = {
+        'status': rc,
+        'data': data,
+    }
+    return rd
+
+
+def md5(s):
+    return hashlib.md5(str(s)).hexdigest()
