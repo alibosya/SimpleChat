@@ -1,2 +1,2 @@
 # SimpleChat
-just for fun.
+For exercise.
